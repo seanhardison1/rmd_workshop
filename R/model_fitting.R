@@ -31,7 +31,7 @@ mod <-
                             s(year, site, bs = "fs"), #site-level variation ("random slope")
     family = "nb",
     method = "REML",
-    data = spart_bio) # site-level variation ("random slope")
+    data = spart_bio)
 
 summary(mod)
 
@@ -42,20 +42,7 @@ gratia::draw(mod)
 gratia::appraise(mod) # the model fits surprisingly well
 
 # prediction----
-# get all combinations of year, transect, site, and habitat type
-prediction_df <- 
-  expand_grid(year = seq(min(spart_bio$year), max(spart_bio$year), by = 1),
-            habitat_type = unique(spart_bio$habitat_type),
-            transect = unique(spart_bio$transect),
-            site = unique(spart_bio$site))
-
-# predict of the new data to get smooths
-pred_out <- cbind(prediction_df,
-      predict(mod,
-              newdata = prediction_df,
-              type = "response",
-              se.fit = T))
-
+# predict from the model using observations
 pred_out2 <- cbind(spart_bio,
                   predict(mod,
                           newdata = spart_bio,
@@ -105,7 +92,7 @@ t <- spart_bio %>%
 # arithmetic mean
 m1 <- mean(t$mean_transect_biomass)
 
-# marginal mean for 1999 from GAMM
+# adjusted prediction for 1999 from GAMM
 m2 <- 
   ggpredict(mod, terms = "year[1999]") %>% 
   as_tibble() %>% 
