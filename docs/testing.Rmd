@@ -1,0 +1,80 @@
+---
+title: "Trends in smooth cordgrass biomass in the Virginia Coast Reserve"
+description: |
+  A new article created using the Distill format.
+author:
+  - name: Sean Hardison
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,dpi=300,fig.width=5,warning = F, message = F,echo = F)
+library(tidyverse)
+library(mgcv)
+library(gratia)
+
+#load data
+load(here::here("data/model_fitting_results.rdata"))
+load(here::here("data/processed_spartina_biomass.rdata"))
+```
+
+# Introduction
+## Introduction
+### Introduction
+#### Introduction
+
+**bold**
+*italics*
+this is a <sup>superscript</sup> using HTML tag
+this is a <sub>subscript</sub> using an HTML tag
+
+# Methods
+
+We can easily write pretty mathematical formulas. For example, a simple linear model is given by 
+
+$$y_i = \beta x_i + \epsilon_i\;\;\;\;\textrm{where}\;\epsilon_i\sim N(0,\sigma^2)$$
+To write equations inline, you use a single \$ rather than 2. This model says that $y_i$ is the covariate $x_i$ multiplied by the constant $\beta$ plus a random term $\epsilon_i$.
+
+Alternatively, you can report your model as it was formulated as code using backticks (four backticks for reporting blocks of code):
+
+````
+mean_transect_biomass ~ s(year) +
+                        s(year, habitat_type, bs = "fs") + 
+                        s(year, site, bs = "fs")
+````
+
+Or you can include code in-line with a single `backtick`.
+
+Code can even be evaluated in-line. For example, here's a random number: `r round(rnorm(1),2)`.
+
+# Results
+
+```{r}
+mod_summ <- summary(mod)
+dev_expl <- mod_summ$dev.expl
+trend_pval <- round(mod_summ$s.table[10], 1)
+```
+
+Results from the GAM showed that there was a significant non-linear trend in *S. alterniflora* biomass density over time across sites and habitats (P = `r trend_pval`). The model explained `r round(dev_expl, 2)`% of deviance. 
+
+```{r}
+# figures!
+
+```
+
+# figures
+    * width, height, dpi
+    * patchwork
+    * .png
+# citations (.bib files)
+# putting it all together (sourcing scripts in .rmds)
+# word documents
+    * .csl files (citation style language)
+    * template files
+    * cover pages
+    
+    
+    
+
+

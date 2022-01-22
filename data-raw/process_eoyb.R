@@ -50,4 +50,3 @@ ggplot(spart_bio) +
 
 # save processed data----
 save(spart_bio, file = here::here("data/processed_spartina_biomass.rdata"))
-

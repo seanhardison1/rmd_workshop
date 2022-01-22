@@ -1,0 +1,65 @@
+---
+output:
+  bookdown::word_document2:
+    reference_docx: "template.docx"
+title: "Trends in smooth cordgress biomass in the Virginia Coast Reserve"
+bibliography: testbib.bib
+csl: nature.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(mgcv)
+library(gratia)
+library(ggeffects)
+
+load(here::here("data/model_fitting_results.rdata"))
+load(here::here("data/processed_spartina_biomass.rdata"))
+```
+
+# Introduction
+## Introduction
+### Introduction
+#### Introduction
+
+**bold**  
+*italics*  
+this is a <sup>superscript</sup>  
+this is a <sub>subscripts</sub>  
+
+# Methods
+
+We can easily write pretty mathematical formulas. For example, a simple linear model is given by
+
+$$y_i = \beta x_i + \epsilon_i\;\;\;\;\textrm{where}\;N\sim(0, \sigma^2)$$
+$y_i$ is the response variable.
+
+The model formula for the GAM was 
+
+````
+mean_transect_biomass ~ s(year) +
+                        s(year, habitat_type, bs = "fs") +
+                        s(year, site, bs = "fs")
+````
+
+Here's a random number: `r round(rnorm(1), 2)`
+
+# Results
+
+```{r}
+mod_summ <- summary(mod)
+dev_expl <- mod_summ$dev.expl
+trend_pval <- mod_summ$s.table[10]
+```
+
+Results from the GAM showed that there was a significant non-linear trend in *S. alterniflora* biomass density through time (P = `r round(trend_pval, 2)`).
+
+```{r trend-plt, fig.cap = "*S. alterniflora* trends in the VCR.", fig.width = 6,fig.height = 3.5}
+vcr_pred_plt
+```
+
+We used the GAMM formulation from @pedersen2019.
+
+We found a trend blah blah (Fig. \@ref(fig:trend-plt)).
+
