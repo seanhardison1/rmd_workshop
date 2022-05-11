@@ -6,7 +6,7 @@ library(ggeffects)
 # research question - how have densities of smooth cordgrass (S. alterniflora) 
 # changed over time across the VCR?
 
-# load data----
+# load data---
 load(here::here("data/processed_spartina_biomass.rdata"))
 
 # visualize----
